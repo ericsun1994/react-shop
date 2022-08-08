@@ -1,9 +1,13 @@
+import { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import "./App.css";
-
 import bg from "./img/bg.png";
 
+import data from "./data.js";
+
 function App() {
+  let [shoes] = useState(data);
+
   return (
     <div className="App">
       <Navbar bg="primary" variant="dark">
