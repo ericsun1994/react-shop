@@ -7,6 +7,8 @@ import bg from "./img/bg.png";
 import data from "./data.js";
 import React from "react";
 
+import { Routes, Route, Link } from "react-router-dom";
+
 function App() {
   let [shoes] = useState(data);
 
@@ -22,17 +24,33 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
-      <div
-        className="main-bg"
-        style={{ backgroundImage: "url(" + bg + ")" }}
-      ></div>
-      <div className="container">
-        <div className="row">
-          {shoes.map((a, i) => {
-            return <Card shoes={shoes[i]} shoesCnt={i}></Card>;
-          })}
-        </div>
-      </div>
+
+      <Link to="/">홈</Link>
+      <Link to="/detail">상세페이지</Link>
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <div
+                className="main-bg"
+                style={{ backgroundImage: "url(" + bg + ")" }}
+              ></div>
+              <div className="container">
+                <div className="row">
+                  {shoes.map((a, i) => {
+                    return <Card shoes={shoes[i]} shoesCnt={i}></Card>;
+                  })}
+                </div>
+              </div>
+            </>
+          }
+        />
+        <Route path="/detail" element={<div>상세페이지임</div>} />{" "}
+        {/* /detail: 상세페이지 */}
+        <Route />
+      </Routes>
     </div>
   );
 }
