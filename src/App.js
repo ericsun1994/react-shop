@@ -7,10 +7,14 @@ import bg from "./img/bg.png";
 import data from "./data.js";
 import React from "react";
 
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+
+import Detail from "./pages/Detail.js";
 
 function App() {
   let [shoes] = useState(data);
+
+  let navigate = useNavigate();
 
   return (
     <div className="App">
@@ -18,15 +22,25 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Home
+            </Nav.Link>
             <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/detail");
+              }}
+              href="#pricing"
+            >
+              Pricing
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
-
-      <Link to="/">홈</Link>
-      <Link to="/detail">상세페이지</Link>
 
       <Routes>
         <Route
@@ -47,10 +61,26 @@ function App() {
             </>
           }
         />
-        <Route path="/detail" element={<div>상세페이지임</div>} />{" "}
-        {/* /detail: 상세페이지 */}
-        <Route />
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
       </Routes>
+    </div>
+  );
+}
+
+function Event() {
+  return (
+    <div>
+      <h2>오늘의 이벤트</h2>
+      <Outlet></Outlet>
+    </div>
+  );
+}
+
+function About() {
+  return (
+    <div>
+      <h4>회사정보임</h4>
+      <Outlet></Outlet>
     </div>
   );
 }
