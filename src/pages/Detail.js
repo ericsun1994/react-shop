@@ -12,13 +12,12 @@ const YellowBtn = styled.button`
 
 function Detail(props) {
   let { id } = useParams();
-  let findItem = props.shoes.foind((x) => x.id === id);
+  let findItem = props.shoes.find((x) => x.id == id);
+  let [alert, setAlert] = useState(true);
+  let [tab, setTab] = useState(0);
   //   let findItem = props.shoes.find(function (x) {
   //     return x.id == id;
   //   });
-
-  let [count, setCount] = useState(0);
-  let [alert, setAlert] = useState(0);
 
   useEffect(() => {
     let a = setTimeout(() => {
@@ -50,21 +49,49 @@ function Detail(props) {
         </div>
       </div>
 
-      <Nav variant="tabs" defaultActiveKey="/home">
+      <Nav variant="tabs" defaultActiveKey="link0">
         <Nav.Item>
-          <Nav.Link href="/home">Active</Nav.Link>
+          <Nav.Link
+            onClick={() => {
+              setTab(0);
+            }}
+            evenKey="link0"
+          >
+            버튼0
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link-1">Option 2</Nav.Link>
+          <Nav.Link
+            onClick={() => {
+              setTab(1);
+            }}
+            eventKey="link1"
+          >
+            버튼1
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="disabled" disabled>
-            Disabled
+          <Nav.Link
+            onClick={() => {
+              setTab(2);
+            }}
+            eventKey="link2"
+          >
+            버튼2
           </Nav.Link>
         </Nav.Item>
       </Nav>
+      <TabConent tab={tab} />
     </div>
   );
 }
-
+function TabConent(props) {
+  if (props.tab === 0) {
+    return <div>내용0</div>;
+  } else if (props.tab === 1) {
+    return <div>내용1</div>;
+  } else if (props.tab === 2) {
+    return <div>내용2</div>;
+  }
+}
 export default Detail;
